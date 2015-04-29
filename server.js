@@ -51,6 +51,25 @@ router.route('/bears')
 
 			res.json({message: 'Bear created!'});
 		});
+	})
+	// get all the bears (access at GET http://localhost:8080/api/bears)
+	.get(function(req,res){
+		Bear.find(function(err,bears){
+			if(err)
+				res.send(err);
+
+			res.json(bears);
+		});
+	});
+
+router.route('/bears/:bear_id')
+	// get the bear with that id (accest at GET http://localhost:8080/api/bears/:bear_id)
+	.get(function(req,res){
+		Bear.findById(req.params.bear_id, function(err,bear){
+			if(err)
+				res.send(err);
+			res.json(bear);
+		});
 	});
 
 // REGISTER OUR ROUTES ----------------------------------------------
